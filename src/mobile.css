@@ -74,3 +74,66 @@
 
   .mine-window{width:calc(100vw - 20px);max-width:340px}
 }
+
+.mobile-desktop-mode .mobile-desktop-icons{position:fixed;top:10px;left:10px;right:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;z-index:3}
+.mobile-desktop-mode .mobile-desktop-icons button{min-width:0;height:82px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:rgba(192,192,192,.9);border:2px solid;border-color:#fff #555 #555 #fff;color:#111;font:9px W95FA,monospace}
+.mobile-desktop-mode .mobile-desktop-icons button:active{border-color:#555 #fff #fff #555;background:#000080;color:#fff}
+.mobile-desktop-mode .mobile-desktop-icons img{width:38px;height:38px;object-fit:contain;image-rendering:auto}
+.mobile-desktop-mode .window,
+.mobile-desktop-mode .window.maximized{
+  top:206px;
+  right:8px;
+  bottom:46px;
+  left:8px;
+  width:auto;
+  height:auto;
+  min-height:0;
+  max-height:none;
+  transform:none;
+}
+.mobile-desktop-mode .bio-card{
+  top:206px;
+  right:8px;
+  bottom:46px;
+  left:8px;
+  width:auto;
+  max-height:none;
+  overflow:auto;
+}
+.mobile-desktop-mode .portrait-image{
+  width:min(140px,42vw);
+  height:min(140px,42vw);
+  max-height:none;
+  aspect-ratio:1;
+  object-fit:cover;
+  margin:0 auto 14px;
+}
+.mobile-desktop-mode .bio-inner > div:not(.bio-details){
+  padding:8px 6px 10px;
+  margin-bottom:12px;
+  text-align:center;
+  background:#c0c0c0;
+  border:2px solid #fff;
+  box-shadow:inset -1px -1px #808080;
+}
+.bio-education,
+.bio-contacts{
+  display:grid;
+  gap:6px;
+}
+.mobile-desktop-mode .bio-education{
+  padding:8px 6px;
+  text-align:center;
+  background:#c0c0c0;
+  border:2px solid #fff;
+  box-shadow:inset -1px -1px #808080;
+}
+.mobile-desktop-mode .bio-contacts{
+  padding:8px 6px;
+  text-align:center;
+  background:#c0c0c0;
+  border:2px solid #fff;
+  box-shadow:inset -1px -1px #808080;
+}
+.mobile-desktop-mode .start-menu{left:4px;bottom:45px;width:min(290px,calc(100vw - 8px))}
+.mobile-desktop-mode .taskbar{z-index:50}

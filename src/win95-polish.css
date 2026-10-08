@@ -1,5 +1,6 @@
 @font-face{font-family:W95FA;src:url('./assets/W95FA.ttf') format('truetype');font-display:swap}
 .titlebar,.window-menu,.taskbar,.tray time,.desktop-icon,.start-menu,.gallery-titlebar,.gallery-footer,.media-hint,.audio-tag{font-family:W95FA,'DM Mono',monospace}
+.project-card .card-art>b{color:#fff}
 .window,.window-menu,.window-content,.director-content,.composer-content,.media-content,.bio-inner,.gallery-window,.gallery-footer{background:#c0c0c0}
 .window-menu{border-bottom:2px solid;border-color:#fff #808080 #808080 #fff;color:#111}
 .window-content{border-top:1px solid #808080}
