@@ -1,0 +1,8 @@
+.track{align-items:flex-start}
+.track-info{width:280px;flex:0 0 280px}
+.track-demos{display:grid;gap:5px;flex:1}
+.demo-row{display:flex;align-items:center;gap:8px}
+.demo-row .play{flex:0 0 28px}
+.demo-row .audio-player{flex:1;width:auto}
+.track-demos .audio-tag{align-self:center}
+@media (max-width:700px){.track-info{width:auto;flex:0 0 145px}.track-demos{min-width:0}}

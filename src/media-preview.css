@@ -1,0 +1,3 @@
+.media-screen.has-preview{background:#111}
+.media-screen.has-preview::before,.media-screen.has-preview::after{display:none}
+.media-preview{display:block;width:100%;height:100%;object-fit:cover}

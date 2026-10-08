@@ -1,0 +1,12 @@
+.director-content,.composer-content,.media-content,.bio-inner{background:#c0c0c0}
+.project-card,.media-card,.track{background:#d0d0d0}
+.winamp-icon{padding:5px!important}
+.media-card{cursor:pointer}
+.media-card:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 rgba(0,0,0,.25)}
+.media-hint{display:block;margin-top:11px;font:9px 'DM Mono',monospace;color:#666;text-transform:uppercase}
+.demo-modal{position:fixed;inset:0;z-index:110;display:grid;place-items:center;padding:30px;background:rgba(0,0,0,.55)}
+.demo-window{width:min(760px,92vw);background:#c0c0c0;border:2px solid;border-color:#fff #333 #333 #fff;box-shadow:10px 10px 0 rgba(0,0,0,.35)}
+.demo-gif{display:block;width:100%;max-height:70vh;object-fit:contain;background:#111}
+.demo-empty{height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:#111;color:#c0c0c0;font:11px 'DM Mono',monospace}.demo-empty strong{font-size:22px;color:#fff}
+.demo-window .gallery-footer a{color:#000080;text-decoration:underline}
+@media (max-width:700px){.demo-modal{padding:10px}.demo-empty{height:220px}}

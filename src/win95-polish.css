@@ -1,0 +1,20 @@
+@font-face{font-family:W95FA;src:url('./assets/W95FA.ttf') format('truetype');font-display:swap}
+.titlebar,.window-menu,.taskbar,.tray time,.desktop-icon,.start-menu,.gallery-titlebar,.gallery-footer,.media-hint,.audio-tag{font-family:W95FA,'DM Mono',monospace}
+.window,.window-menu,.window-content,.director-content,.composer-content,.media-content,.bio-inner,.gallery-window,.gallery-footer{background:#c0c0c0}
+.window-menu{border-bottom:2px solid;border-color:#fff #808080 #808080 #fff;color:#111}
+.window-content{border-top:1px solid #808080}
+.project-card,.media-card,.track{background:#fff}
+.project-card{border:2px solid;border-color:#fff #808080 #808080 #fff;box-shadow:inset 1px 1px #dfdfdf}
+.project-card:active{border-color:#808080 #fff #fff #808080}
+.card-body,.media-card>div:last-child{background:#fff}
+.track-demos{background:#fff}
+.track{border:2px solid;border-color:#fff #808080 #808080 #fff;box-shadow:inset 1px 1px #dfdfdf}
+.track:active{border-color:#808080 #fff #fff #808080}
+.demo-row{padding:2px 0}
+.demo-row .audio-player{width:100%;min-width:0}
+.bio-inner{border:1px solid #808080}
+.gallery-footer{border-top:2px solid;border-color:#808080 #fff #fff #808080}
+.vapor-heading{font-family:'Arial Black',Impact,sans-serif!important;font-style:normal!important;font-weight:900;letter-spacing:-.08em;text-transform:uppercase;line-height:.82!important;transform:skew(-4deg);color:#000080;text-shadow:3px 3px 0 #00807f,-2px -2px 0 #000080,6px 6px 0 rgba(0,0,0,.16);filter:saturate(1.2)}.vapor-heading i{font-family:'Arial Black',Impact,sans-serif!important;font-style:normal!important;color:#00807f;text-shadow:3px 3px 0 #000080,-2px -2px 0 #00807f}.vapor-heading::selection,.vapor-heading i::selection{background:#000080;color:#fff}
+.titlebar-gif{display:none}.window-actions{margin-left:auto}
+.section-intro>div{position:relative}.section-intro h1::after{content:"";display:block;position:absolute;right:-190px;top:-12px;width:114px;height:114px;background-position:center;background-size:cover;background-repeat:no-repeat;transform:skew(4deg)}.director-content .section-intro h1::after{background-image:url('/wins95Portfolio/gif/theatre.gif')}.composer-content .section-intro h1::after{background-image:url('/wins95Portfolio/gif/winamp.gif')}.media-content .section-intro h1::after{background-image:url('/wins95Portfolio/gif/lab.gif')}
+@media(max-width:700px){.section-intro h1::after{right:-26px;top:-16px;width:72px;height:72px}}

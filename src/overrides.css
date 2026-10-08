@@ -1,0 +1,26 @@
+/* Final desktop treatment: the work area starts directly on the desktop. */
+.desktop-icons{top:28px;left:24px;gap:16px}
+.abstract-shape{display:none}
+.desktop-icon{width:170px;min-height:126px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:11px;text-align:center;border:2px solid;border-color:#fff #555 #555 #fff;background:rgba(192,192,192,.8);box-shadow:inset 1px 1px rgba(255,255,255,.8)}
+.desktop-icon:hover,.desktop-icon.selected{background:#000080;color:#fff;border-color:#555 #fff #fff #555}
+.desktop-icon>span:not(.file-icon){font:12px 'DM Mono',monospace}
+.desktop-icon small{grid-column:auto;margin-top:0;color:inherit;font-size:10px}
+.desktop-icon .image-icon{width:58px;height:58px;padding:3px;border:0;box-shadow:none;background:transparent;image-rendering:auto}
+.window{top:40px;height:calc(100vh - 112px)}
+.window:nth-child(2){top:65px}.window:nth-child(3){top:55px}
+.window,.window:nth-child(2),.window:nth-child(3){left:50%;transform:translateX(-50%);width:min(980px,calc(100vw - 300px))}
+.window.maximized{top:0;bottom:36px}
+.wallpaper-button{font-size:9px;white-space:nowrap;padding:0 8px}
+.tray .wallpaper-button{margin-left:7px}
+.bio-card{border:2px solid;border-color:#fff #555 #555 #fff;background:#c0c0c0;box-shadow:8px 8px 0 rgba(0,0,0,.28)}.bio-top{background:#000080;color:#fff;height:31px}.bio-top button{width:20px;height:20px;background:#c0c0c0;border:2px solid;border-color:#fff #555 #555 #fff;color:#111}.bio-inner{background:#f5f2eb;margin:3px;padding:14px}.portrait-image{display:block;width:100%;aspect-ratio:1;object-fit:cover;border:2px solid;border-color:#555 #fff #fff #555;margin-bottom:16px}.bio-inner h2:after{display:none}.bio-details{font-size:11px}
+.card-art{background-size:cover;background-position:center}.project-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72;mix-blend-mode:multiply}.card-art>span,.card-art>b{position:relative;z-index:1;text-shadow:0 1px rgba(255,255,255,.5)}.audio-player{width:170px;height:28px;accent-color:#000080}
+.project-card{cursor:pointer}.project-card:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 rgba(0,0,0,.25)}.gallery-modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.55);display:grid;place-items:center;padding:30px}.gallery-window{width:min(900px,92vw);background:#c0c0c0;border:2px solid;border-color:#fff #333 #333 #fff;box-shadow:10px 10px 0 rgba(0,0,0,.35)}.gallery-titlebar{height:31px;background:#000080;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 8px;font:12px 'DM Mono',monospace}.gallery-titlebar button{width:20px;height:20px;background:#c0c0c0;color:#111;border:2px solid;border-color:#fff #555 #555 #fff;font-weight:700;line-height:14px}.gallery-body{height:min(70vh,600px);display:flex;align-items:center;justify-content:space-between;gap:15px;padding:18px;background:#202020}.gallery-body img{max-width:calc(100% - 90px);max-height:100%;object-fit:contain}.gallery-arrow{width:34px;height:50px;color:#fff;background:#000080;border:2px solid;border-color:#fff #555 #555 #fff;font-size:30px;line-height:20px}.gallery-footer{height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font:10px 'DM Mono',monospace}.audio-player{min-width:170px}
+@media (max-width:700px){
+  .desktop-icons{top:auto;left:auto;gap:8px}
+  .desktop-icon{width:140px;min-width:140px;min-height:112px;padding:8px}
+  .desktop-icon .image-icon{width:48px;height:48px}
+  .window,.window:nth-child(2),.window:nth-child(3){top:auto;left:auto;transform:none;width:100%;height:auto}
+  .window.maximized{top:0;bottom:36px}
+  .tray .wallpaper-button{font-size:0;width:28px;padding:0}
+  .audio-player{width:120px;min-width:120px}.gallery-modal{padding:10px}.gallery-body{height:65vh;padding:8px;gap:5px}.gallery-body img{max-width:calc(100% - 60px)}.gallery-arrow{width:27px;height:42px;font-size:24px}.gallery-footer span:last-child{display:none}
+}
