@@ -7,6 +7,8 @@ import './ui-overrides.css'
 import './win95-polish.css'
 import './media-preview.css'
 import './minesweeper.css'
+import './mobile.css'
+import './mobile-portfolio.css'
 import folderIcon from './assets/folder.png'
 import mediaIcon from './assets/display.png'
 import bioIcon from './assets/notepad.png'
@@ -58,12 +60,35 @@ function App() {
   const closeWindow = (id) => setWindows((state) => ({ ...state, [id]: false }))
   const changeWallpaper = () => { const nextLayer = activeWallpaperLayer === 0 ? 1 : 0; const nextIndex = (wallpaperLayers[activeWallpaperLayer] + 1) % wallpapers.length; setWallpaperLayers((layers) => layers.map((value, index) => index === nextLayer ? nextIndex : value)); requestAnimationFrame(() => setActiveWallpaperLayer(nextLayer)) }
   const tabs = useMemo(() => [['director', 'theatre.exe', 'Портфолио режиссера'], ['composer', 'winamp.exe', 'Портфолио композитора'], ['media', 'lab.dll', 'Медиа-арт / software']], [])
+  const mobileMode = typeof window !== 'undefined' && (window.location.hostname.toLowerCase().startsWith('m.') || new URLSearchParams(window.location.search).get('mobile') === '1')
+
+  if (mobileMode) return <MobilePortfolio />
 
   return <main className="desktop"><div className="wallpaper-layer" style={{ backgroundImage: `url(${wallpapers[wallpaperLayers[0]]})`, opacity: activeWallpaperLayer === 0 ? 1 : 0 }} /><div className="wallpaper-layer" style={{ backgroundImage: `url(${wallpapers[wallpaperLayers[1]]})`, opacity: activeWallpaperLayer === 1 ? 1 : 0 }} /><div className="noise" />
     <section className="desktop-icons" aria-label="Разделы портфолио">{tabs.map(([id, file, label]) => <button key={id} className={`desktop-icon ${active === id ? 'selected' : ''}`} onClick={(e) => { e.stopPropagation(); openWindow(id) }}><img className="file-icon image-icon" src={appIcons[id]} alt="" /><span>{file}</span><small>{label}</small></button>)}<button className="desktop-icon" onClick={(e) => { e.stopPropagation(); setBioOpen(true) }}><img className="file-icon image-icon bio" src={bioIcon} alt="" /><span>about.txt</span><small>биография</small></button></section>
     <div className="windows-layer">{tabs.map(([id, file, label]) => windows[id] && !minimized[id] && <Window key={id} id={id} title={file} label={label} z={zOrder.indexOf(id)} maximized={maximized[id]} onFocus={() => focus(id)} onMinimize={() => setMinimized((s) => ({ ...s, [id]: true }))} onMaximize={() => setMaximized((s) => ({ ...s, [id]: !s[id] }))} onClose={() => closeWindow(id)}>{id === 'director' && <Director />}{id === 'composer' && <Composer />}{id === 'media' && <Media />}</Window>)}</div>
     {bioOpen && <Bio onClose={() => setBioOpen(false)} onFocus={() => focus('bio')} />}{minesweeperOpen && <Minesweeper onClose={() => setMinesweeperOpen(false)} />}
     <footer className="taskbar" onClick={(e) => e.stopPropagation()}><button className="start-button" onClick={() => setMinesweeperOpen(true)}><span className="windows-logo">▦</span><strong>start</strong></button><div className="task-buttons">{tabs.map(([id, file]) => windows[id] && <button key={id} className={active === id ? 'task-active' : ''} onClick={() => { setActive(id); setMinimized((s) => ({ ...s, [id]: !s[id] })); focus(id) }}><span>{id === 'director' ? '✦' : id === 'composer' ? '♫' : '◌'}</span>{file}</button>)}{minesweeperOpen && <button className="task-active" onClick={() => setMinesweeperOpen((open) => !open)}>▦ minesweeper</button>}</div><div className="tray"><span className="online-dot" /> available for projects <button className="wallpaper-button" onClick={changeWallpaper}>сменить обои</button><time>{clock}</time></div></footer>
+  </main>
+}
+
+function MobilePortfolio() {
+  const [section, setSection] = useState('theatre')
+  const [selectedProject, setSelectedProject] = useState(null)
+  const [slide, setSlide] = useState(0)
+  const [selectedDemo, setSelectedDemo] = useState(null)
+  const openProject = (project) => { setSelectedProject(project); setSlide(0) }
+  const gallery = selectedProject ? projectGallery[selectedProject.title] || [] : []
+  return <main className="mobile-portfolio">
+    <header className="mobile-hero"><div className="mobile-brand"><span>KV</span><div><strong>Карим Вахитов</strong><small>theatre · sound · media</small></div></div><a href="https://instagram.com/discotemple" target="_blank" rel="noreferrer">@discotemple ↗</a></header>
+    <section className="mobile-intro"><div className="mobile-portrait"><img src={assetUrl('/media/whoami.jpg')} alt="Карим Вахитов" /></div><div><span className="mobile-kicker">личный архив / 2026</span><h1>Режиссёр,<br /><i>композитор</i><br />и художник медиа.</h1><p>Работаю с текстом, телом, звуком и технологиями как с равноправными сценическими материалами.</p></div></section>
+    <nav className="mobile-nav" aria-label="Разделы портфолио"><button className={section === 'theatre' ? 'active' : ''} onClick={() => setSection('theatre')}>theatre.exe</button><button className={section === 'sound' ? 'active' : ''} onClick={() => setSection('sound')}>winamp.exe</button><button className={section === 'media' ? 'active' : ''} onClick={() => setSection('media')}>lab.dll</button></nav>
+    {section === 'theatre' && <section className="mobile-section"><div className="mobile-section-title"><span>01 / режиссёрский архив</span><h2>Работы<br /><i>в театре.</i></h2><img src={assetUrl('/gif/theatre.gif')} alt="" /></div><div className="mobile-project-list">{directorProjects.map((project) => <button className="mobile-project" key={project.title} onClick={() => openProject(project)}><div className={`mobile-project-image ${project.tone}`}>{projectImages[project.title] && <img src={assetUrl(projectImages[project.title])} alt="" />}<span>{project.type}</span></div><div><h3>{project.title}</h3><p>{project.text}</p><small>{project.place} · {project.date}</small></div><b>↗</b></button>)}</div></section>}
+    {section === 'sound' && <section className="mobile-section"><div className="mobile-section-title"><span>02 / original score</span><h2>Портфолио<br /><i>композитора</i></h2><img src={assetUrl('/gif/winamp.gif')} alt="" /></div><p className="mobile-description">Музыка для театра, кино и радио. Два фрагмента из архива для каждого проекта.</p><div className="mobile-track-list">{composerProjects.map((project) => <article className="mobile-track" key={project.title}><div><h3>{project.title}</h3><small>{project.info}</small></div>{project.audio.length ? project.audio.map((src) => <audio key={src} controls preload="metadata" src={assetUrl(src)} />) : <em>demo добавляется</em>}</article>)}</div></section>}
+    {section === 'media' && <section className="mobile-section"><div className="mobile-section-title"><span>03 / media lab</span><h2>Живые<br /><i>системы</i></h2><img src={assetUrl('/gif/lab.gif')} alt="" /></div><p className="mobile-description">Медиа-арт, интерактивные объекты, собственные инструменты.</p><div className="mobile-media-list">{mediaProjects.map(([title, type, text]) => <button className="mobile-media" key={title} onClick={() => demoGifs[title] && setSelectedDemo({ title, type, src: demoGifs[title] })}><div className="mobile-media-preview">{demoGifs[title] ? <img src={assetUrl(demoGifs[title])} alt="" /> : <span>TD</span>}</div><div><small>{type}</small><h3>{title}</h3><p>{text}</p>{githubLinks[title] && <a href={githubLinks[title]} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>GitHub ↗</a>}</div></button>)}</div></section>}
+    <footer className="mobile-footer"><span>available for projects</span><a href="mailto:vakhitovkarim2002@gmail.com">contact ↗</a></footer>
+    {selectedProject && <div className="mobile-lightbox" onClick={() => setSelectedProject(null)}><div onClick={(event) => event.stopPropagation()}><header><strong>{selectedProject.title}</strong><button onClick={() => setSelectedProject(null)}>×</button></header><div className="mobile-lightbox-image"><button onClick={() => setSlide((slide - 1 + gallery.length) % gallery.length)}>‹</button><img src={assetUrl(gallery[slide])} alt={selectedProject.title} /><button onClick={() => setSlide((slide + 1) % gallery.length)}>›</button></div><small>{slide + 1} / {gallery.length}</small></div></div>}
+    {selectedDemo && <div className="mobile-lightbox" onClick={() => setSelectedDemo(null)}><div onClick={(event) => event.stopPropagation()}><header><strong>{selectedDemo.title}</strong><button onClick={() => setSelectedDemo(null)}>×</button></header><img className="mobile-demo-image" src={assetUrl(selectedDemo.src)} alt={`${selectedDemo.title} demo`} /><small>{selectedDemo.type}</small></div></div>}
   </main>
 }
 
