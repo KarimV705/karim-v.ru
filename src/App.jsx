@@ -60,7 +60,10 @@ function App() {
   const closeWindow = (id) => setWindows((state) => ({ ...state, [id]: false }))
   const changeWallpaper = () => { const nextLayer = activeWallpaperLayer === 0 ? 1 : 0; const nextIndex = (wallpaperLayers[activeWallpaperLayer] + 1) % wallpapers.length; setWallpaperLayers((layers) => layers.map((value, index) => index === nextLayer ? nextIndex : value)); requestAnimationFrame(() => setActiveWallpaperLayer(nextLayer)) }
   const tabs = useMemo(() => [['director', 'theatre.exe', 'Портфолио режиссера'], ['composer', 'winamp.exe', 'Портфолио композитора'], ['media', 'lab.dll', 'Медиа-арт / software']], [])
-  const mobileMode = typeof window !== 'undefined' && (window.location.hostname.toLowerCase().startsWith('m.') || new URLSearchParams(window.location.search).get('mobile') === '1')
+  const mobileDevice = typeof navigator !== 'undefined' && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  const mobileHost = typeof window !== 'undefined' && window.location.hostname.toLowerCase().startsWith('m.')
+  const mobileMode = typeof window !== 'undefined' && (mobileHost || mobileDevice || new URLSearchParams(window.location.search).get('mobile') === '1')
+  useEffect(() => { if (mobileDevice && window.location.hostname === 'karim-v.ru') window.location.replace(`https://m.karim-v.ru${window.location.pathname}${window.location.search}${window.location.hash}`) }, [mobileDevice])
 
   if (mobileMode) return <MobilePortfolio />
 
