@@ -9,6 +9,7 @@ import './media-preview.css'
 import './minesweeper.css'
 import './mobile.css'
 import './mobile-portfolio.css'
+import './desktop-feed.css'
 import folderIcon from './assets/folder.png'
 import mediaIcon from './assets/display.png'
 import bioIcon from './assets/notepad.png'
@@ -51,9 +52,9 @@ const mediaProjects = [
 
 function App() {
   const [active, setActive] = useState('director'), [bioOpen, setBioOpen] = useState(true), [clock, setClock] = useState('')
-  const [windows, setWindows] = useState({ director: true, composer: false, media: false }), [minimized, setMinimized] = useState({}), [maximized, setMaximized] = useState({}), [zOrder, setZOrder] = useState(['director', 'composer', 'media'])
+  const [windows, setWindows] = useState({ director: false, composer: false, media: false }), [minimized, setMinimized] = useState({}), [maximized, setMaximized] = useState({}), [zOrder, setZOrder] = useState(['director', 'composer', 'media'])
   const [wallpaperLayers, setWallpaperLayers] = useState([0, 0]), [activeWallpaperLayer, setActiveWallpaperLayer] = useState(0)
-  const [minesweeperOpen, setMinesweeperOpen] = useState(false)
+  const [minesweeperOpen, setMinesweeperOpen] = useState(false), [startOpen, setStartOpen] = useState(false)
   useEffect(() => { const tick = () => setClock(new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit' }).format(new Date())); tick(); const id = setInterval(tick, 30000); return () => clearInterval(id) }, [])
   const focus = (id) => setZOrder((order) => [...order.filter((item) => item !== id), id])
   const openWindow = (id) => { setWindows((state) => ({ ...state, [id]: true })); setMinimized((state) => ({ ...state, [id]: false })); focus(id); setActive(id) }
@@ -71,9 +72,11 @@ function App() {
     <section className="desktop-icons" aria-label="Разделы портфолио">{tabs.map(([id, file, label]) => <button key={id} className={`desktop-icon ${active === id ? 'selected' : ''}`} onClick={(e) => { e.stopPropagation(); openWindow(id) }}><img className="file-icon image-icon" src={appIcons[id]} alt="" /><span>{file}</span><small>{label}</small></button>)}<button className="desktop-icon" onClick={(e) => { e.stopPropagation(); setBioOpen(true) }}><img className="file-icon image-icon bio" src={bioIcon} alt="" /><span>about.txt</span><small>биография</small></button></section>
     <div className="windows-layer">{tabs.map(([id, file, label]) => windows[id] && !minimized[id] && <Window key={id} id={id} title={file} label={label} z={zOrder.indexOf(id)} maximized={maximized[id]} onFocus={() => focus(id)} onMinimize={() => setMinimized((s) => ({ ...s, [id]: true }))} onMaximize={() => setMaximized((s) => ({ ...s, [id]: !s[id] }))} onClose={() => closeWindow(id)}>{id === 'director' && <Director />}{id === 'composer' && <Composer />}{id === 'media' && <Media />}</Window>)}</div>
     {bioOpen && <Bio onClose={() => setBioOpen(false)} onFocus={() => focus('bio')} />}{minesweeperOpen && <Minesweeper onClose={() => setMinesweeperOpen(false)} />}
-    <footer className="taskbar" onClick={(e) => e.stopPropagation()}><button className="start-button" onClick={() => setMinesweeperOpen(true)}><span className="windows-logo">▦</span><strong>start</strong></button><div className="task-buttons">{tabs.map(([id, file]) => windows[id] && <button key={id} className={active === id ? 'task-active' : ''} onClick={() => { setActive(id); setMinimized((s) => ({ ...s, [id]: !s[id] })); focus(id) }}><span>{id === 'director' ? '✦' : id === 'composer' ? '♫' : '◌'}</span>{file}</button>)}{minesweeperOpen && <button className="task-active" onClick={() => setMinesweeperOpen((open) => !open)}>▦ minesweeper</button>}</div><div className="tray"><span className="online-dot" /> available for projects <button className="wallpaper-button" onClick={changeWallpaper}>сменить обои</button><time>{clock}</time></div></footer>
+    <footer className="taskbar" onClick={(e) => e.stopPropagation()}><button className={`start-button ${startOpen ? 'pressed' : ''}`} onClick={() => setStartOpen((open) => !open)}><span className="windows-logo">▦</span><strong>start</strong></button>{startOpen && <StartMenu onOpen={openWindow} onWallpaper={() => { changeWallpaper(); setStartOpen(false) }} onMinesweeper={() => { setMinesweeperOpen(true); setStartOpen(false) }} onAbout={() => { setBioOpen(true); setStartOpen(false) }} />}<div className="task-buttons">{tabs.map(([id, file]) => windows[id] && <button key={id} className={active === id ? 'task-active' : ''} onClick={() => { setActive(id); setMinimized((s) => ({ ...s, [id]: !s[id] })); focus(id) }}><span>{id === 'director' ? '✦' : id === 'composer' ? '♫' : '◌'}</span>{file}</button>)}{minesweeperOpen && <button className="task-active" onClick={() => setMinesweeperOpen((open) => !open)}>▦ minesweeper</button>}</div><div className="tray"><span className="online-dot" /> available for projects <button className="wallpaper-button" onClick={changeWallpaper}>сменить обои</button><time>{clock}</time></div></footer>
   </main>
 }
+
+function StartMenu({ onOpen, onWallpaper, onMinesweeper, onAbout }) { const item = (label, icon, action, note) => <button onClick={action}><span>{icon}</span><div><strong>{label}</strong><small>{note}</small></div></button>; return <div className="start-menu" onClick={(event) => event.stopPropagation()}><div className="start-rail">Windows <span>karim-v.ru</span></div><div className="start-items">{item('about.txt', '▤', onAbout, 'биография и контакты')}{item('theatre.exe', '▣', () => onOpen('director'), 'работы в театре')}{item('winamp.exe', '♫', () => onOpen('composer'), 'портфолио композитора')}{item('lab.dll', '◌', () => onOpen('media'), 'живые системы')}{item('wallpapers.bat', '▧', onWallpaper, 'сменить обои')}{item('mnswpr.bat', '▦', onMinesweeper, 'minesweeper')}</div></div> }
 
 function MobilePortfolio() {
   const [section, setSection] = useState('theatre')

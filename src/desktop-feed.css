@@ -1,0 +1,9 @@
+.desktop-header{display:none}
+.start-menu{z-index:130;bottom:42px;left:4px;width:290px;background:#c0c0c0;border:2px solid;border-color:#fff #555 #555 #fff;box-shadow:8px 8px 0 rgba(0,0,0,.28)}
+.start-rail{width:42px;background:#000080;color:#fff;padding:9px 8px;font:13px W95FA,monospace;letter-spacing:.08em}.start-rail span{color:#c0c0c0;font-size:8px}
+.start-items{padding:6px}.start-items button{display:flex;align-items:center;gap:9px;width:100%;padding:7px 6px;text-align:left}.start-items button:hover{background:#000080;color:#fff}.start-items button>span{width:27px;height:27px;flex:none;display:grid;place-items:center;background:#c0c0c0;color:#111;border:2px solid;border-color:#fff #555 #555 #fff;font:14px W95FA}.start-items button:hover>span{color:#000080}.start-items strong,.start-items small{display:block}.start-items strong{font:11px W95FA,monospace}.start-items small{font:8px W95FA,monospace;color:#555;margin-top:2px}.start-items button:hover small{color:#c0c0c0}
+@media(min-width:701px){
+  .project-grid,.media-grid{grid-template-columns:minmax(0,720px);justify-content:center;gap:16px}
+  .project-card{min-height:0}.card-art{height:300px}.card-body{padding:17px 19px}.card-body h2,.media-card h2{font-size:21px}.card-body p,.media-card p{font-size:12px}.meta{margin-top:18px}
+  .media-screen{height:320px}.media-card>div:last-child{padding:17px 19px}
+}
